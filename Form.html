@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Assignment</title>
+	<style>
+		fieldset {
+			margin-bottom: 20px;
+		}
+/* 
+		.button {
+			border: none;
+			color: white;
+			text-align: center;
+			cursor: pointer;
+		} */
+
+		#edit {
+			background-color: #4CAF50;
+			color: white;
+			cursor: pointer;
+		}
+
+		#delete {
+			background-color: #008CBA;
+			color: white;
+			cursor: pointer;
+		}
+
+
+		#save {
+			background-color: red;
+			color: white;
+			cursor: pointer;
+		}
+
+		.validationMessage {
+			color: #f00;
+		}
+
+		.customMessage {
+			color: #FFA500;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<fieldset>
+		<legend>
+			Student Registration Form
+		</legend>
+
+		<form id="registrationForm">
+
+			<p>FIRST NAME <input type="text" id="fname" placeholder="First Name" data-bind="value:firstname" /></p>
+			<p>LAST NAME <input type="text" id="lname" placeholder="Last Name" data-bind="value:lastname" /></p>
+
+			DATE OF BIRTH <select id="date" data-bind="options:dayvalues,value: selectedDay"></select>
+			<select id="month" data-bind="options:monthvalues ,value: selectedMonth"></select>
+			<select id="year" data-bind="options:yearvalues,value: selectedYear"></select>
+
+			<p>EMAIL ID <input id="email" type="email" placeholder="Email" data-bind="value:email" /></p>
+
+			<div class="row" data-bind="validationOptions: { messageTemplate: 'customMessageTemplate' }">
+			<p>MOBILE NUMBER <input id="mobilenum" type="text" placeholder="Mobile Number"
+					data-bind="value:mobilenumber" /></p>
+            </div>
+
+			<p>GENDER <input id="male" type="radio" name="gender" value="Male" data-bind="checked: chosenGender" /> Male
+				<input id="female" type="radio" name="gender" value="Female" data-bind="checked: chosenGender" /> Female
+				<!--
+<p> ADDRESS <textarea  placeholder="Enter your Address" data-bind="value: stringValue"> </textarea> </p>
+-->
+			<p>CITY <input id="city" type="text" data-bind="value:city" /></p>
+
+			<p> ZIP CODE <input id="zipcode" type="text" data-bind="value:zipcode" /></p>
+			<p>STATE <select id="state" data-bind="options: states,value:selectedState"></select> </p>
+			<p>COUNTRY <select id="country" data-bind="options:countries ,value:selectedCountry"></select> </p>
+
+			<p> HOBBIES:
+				<input id="Drawing" type="checkbox" data-bind="checked:booleanValue" />Drawing
+				<input id="Singing" type="checkbox" data-bind="checked:booleanValue1" />Singing
+				<input id="other" type="checkbox" data-bind="checked:booleanValue2" />Others <input id="otherhobby"
+					type="text" data-bind="value:otherhobby" />
+			</p>
+
+
+			<p> QUALIFICATION &nbsp;&nbsp;&nbsp; Examination &nbsp;&nbsp;&nbsp; Marks </p>
+			<p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				Class X &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; English &nbsp; Maths &nbsp; Hindi &nbsp;
+				Punjabi &nbsp; Science &nbsp; Social </p>
+			<p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				<input data-bind="value:engscore" id="Eng" type="text" maxlength="2" size="2">
+				<input data-bind="value:mathsscore" id="Maths" type="text" maxlength="2" size="2">
+				<input data-bind="value:hindiscore" id="Hindi" type="text" maxlength="2" size="2">
+				<input data-bind="value:pbiscore" id="Punjabi" type="text" maxlength="2" size="2">
+				<input data-bind="value:sciscore" id="Science" type="text" maxlength="2" size="2">
+				<input data-bind="value:socialscore" id="Social" type="text" maxlength="2" size="2">
+			</p>
+			<p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				Class XII &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; English &nbsp; Maths &nbsp; Hindi &nbsp;
+				Punjabi &nbsp; Science &nbsp; Social </p>
+			<p> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				<input data-bind="value:Engscore" id="english" type="text" maxlength="2" size="2">
+				<input data-bind="value:Mathsscore" id="maths1" type="text" maxlength="2" size="2">
+				<input data-bind="value:Hindiscore" id="hindi1" type="text" maxlength="2" size="2">
+				<input data-bind="value:Pbiscore" id="punjabi1" type="text" maxlength="2" size="2">
+				<input data-bind="value:Sciscore" id="science1" type="text" maxlength="2" size="2">
+				<input data-bind="value:Socialscore" id="social1" type="text" maxlength="2" size="2">
+			</p>
+
+			<p> COURSE APPLIED &nbsp;&nbsp; &nbsp;&nbsp; <input id="bca" type="radio" name="course" value="BCA"
+					data-bind="checked: chosenCourse" /> BCA
+				<input id="bsc" type="radio" name="course" value="BSC" data-bind="checked: chosenCourse" /> BSC
+				<input id="ba" type="radio" name="course" value="BA" data-bind="checked: chosenCourse" /> BA
+			</p>
+			<p> <input id="agreed" type="checkbox" data-bind="checked:booleanValue3" />
+				I HEREBY AGREE THAT ALL THE INFORMATION GIVEN ABOVE IS CORRECT &nbsp;&nbsp;
+				<input id="insert" value="Submit" type="submit" data-bind="click : submit"> &nbsp;
+				<input id="reset" type="reset" value="Reset" data-bind="click : reset"/>
+			</p>
+
+
+		</form>
+	</fieldset>
+	<fieldset>
+		<legend> Local Storage Data </legend>
+		<div id="IsOutput">
+			<table border="1">
+				<tbody>
+					<tr>
+						<th> First Name </th>
+						<th> Last Name </th>
+						<th> Date</th>
+						<th> Month</th>
+						<th> Year</th>
+						<th> Email Id </th>
+						<th> Mobile No. </th>
+						<th> Gender </th>
+						
+						<th> City </th>
+						<th> Zip-code</th>
+						<th> State</th>
+						<th> Country</th>
+						<th> Drawing </th>
+						<th> Singing </th>
+						<th> Other </th>
+						<th> OtherHobby </th>
+						<th> English </th>
+						<th> Hindi </th>
+						<th> Maths </th>
+						<th> Science </th>
+						<th> Social </th>
+						<th> Punjabi </th>
+						<th> English(II) </th>
+						<th> Hindi(II)</th>
+						<th> Math(II)</th>
+						<th> Pbi(II)</th>
+						<th> Sci(II) </th>
+						<th> Social(II)</th>
+						
+						<th>Course</th>
+					
+						<th> Agreed</th>
+						
+						<th> Edit</th>
+						
+						<th> Delete</th>
+					</tr>
+					<tr>
+
+						<td> <input type="text" id="tdata" maxlength="8" size="8" data-bind="value: tdata"> </td>
+						<td> <input type="text" id="tdata1" maxlength="8" size="8" data-bind="value: tdata1"></td>
+						<td> <input type="text" id="tdata2" maxlength="6" size="6" data-bind="value: tdata2"></td>
+						<td> <input type="text" id="tdata3" maxlength="6" size="6" data-bind="value: tdata3"></td>
+						<td> <input type="text" id="tdata4" maxlength="6" size="6" data-bind="value: tdata4"></td>
+
+						<td> <input type="text" id="tdata5" maxlength="25" size="25" data-bind="value: tdata5"> </td>
+						<td> <input type="text" id="tdata6" maxlength="12" size="12" data-bind="value: tdata6"></td>
+						<td> <input type="text" id="tdata7" maxlength="6" size="6" data-bind="value: tdata7"></td>
+						
+						<td> <input type="text" id="tdata9" maxlength="6" size="6" data-bind="value: tdata9"></td>
+						<td> <input type="text" id="tdata10" maxlength="6" size="6" data-bind="value: tdata10"></td>
+						<td> <input type="text" id="tdata11" maxlength="6" size="6" data-bind="value: tdata11"></td>
+						<td> <input type="text" id="tdata12" maxlength="6" size="6"  data-bind="value: tdata12"></td>
+						<td> <input type="text" id="tdata13" maxlength="6" size="6" data-bind="value: tdata13"></td>
+						<td> <input type="text" id="tdata14" maxlength="6" size="6"  data-bind="value: tdata14"></td>
+						<td> <input type="text" id="tdata15" maxlength="6" size="6" data-bind="value: tdata15"></td>
+						<td> <input type="text" id="tdata16" maxlength="7" size="7" data-bind="value: tdata16"></td>
+
+						<td> <input type="text" id="tdata17" maxlength="6" size="6" data-bind="value: tdata17"> </td>
+						<td> <input type="text" id="tdata18" maxlength="6" size="6" data-bind="value: tdata18"></td>
+						<td> <input type="text" id="tdata19" maxlength="6" size="6" data-bind="value: tdata19"></td>
+						<td> <input type="text" id="tdata20" maxlength="6" size="6" data-bind="value: tdata20"></td>
+						<td> <input type="text" id="tdata21" maxlength="6" size="6"data-bind="value: tdata21"></td>
+						<td> <input type="text" id="tdata22" maxlength="6" size="6" data-bind="value: tdata22"> </td>
+						<td> <input type="text" id="tdata23" maxlength="6" size="6" data-bind="value: tdata23"></td>
+						<td> <input type="text" id="tdata24" maxlength="6" size="6" data-bind="value: tdata24"></td>
+						<td> <input type="text" id="tdata25" maxlength="6" size="6" data-bind="value: tdata25"></td>
+						<td> <input type="text" id="tdata26" maxlength="6" size="6" data-bind="value: tdata26"></td>
+
+						<td> <input type="text" id="tdata27" maxlength="6" size="6"data-bind="value: tdata27"> </td>
+						<td> <input type="text" id="tdata28" maxlength="6" size="6" data-bind="value: tdata28"></td>
+						<td> <input type="text" id="tdata29" maxlength="6" size="6" data-bind="value: tdata29"></td>
+						
+						<td> <input type="text" id="tdata32" maxlength="6" size="6" data-bind="value: tdata32"></td>
+						<td><button id="edit" data-bind="click: editData">Edit</button></td>
+					   <td><button id="delete" data-bind="click: deleteData">Delete</button></td>
+					</tr>
+
+
+				</tbody>
+			</table>
+
+
+
+
+		</div>
+	</fieldset>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js" type="text/javascript"></script>
+	<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.js"></script>
+-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.min.js"> </script>
+	<script id="customMessageTemplate" type="text/html">
+		<em class="customMessage" data-bind='validationMessage: field'></em>
+	</script>
+
+	<script type="text/javascript">
+	
+	 var temp = localStorage.getItem("fname");
+	  var temp1 = localStorage.getItem("lname");
+	 var temp2 = localStorage.getItem("date");
+	 var temp3 = localStorage.getItem("month");
+	 var temp4 = localStorage.getItem("year");
+	  
+	  var temp5 = localStorage.getItem("email");
+	    var temp6 = localStorage.getItem("mobilenum");
+	   var temp7 =   localStorage.getItem("male");
+	   
+	  var temp8 =   localStorage.getItem("female");
+	  
+	  var temp9 =  localStorage.getItem("city");
+	    var temp10 = localStorage.getItem("zipcode");
+	     var temp11 = localStorage.getItem("state");
+	   var temp12 =  localStorage.getItem("country");
+	     var temp13 = localStorage.getItem("Drawing");
+	    var temp14 = localStorage.getItem("Singing");
+	    var temp15 = localStorage.getItem("other");
+	   var temp16 =   localStorage.getItem("otherhobby");
+	   
+	    var temp17 = localStorage.getItem('Eng');
+		 var temp18 = localStorage.getItem('Hindi');
+		   var temp19 = localStorage.getItem('Maths');
+		      var temp20 = localStorage.getItem('Science');
+	    	 var temp21 =  localStorage.getItem('Social');
+           var temp22 = localStorage.getItem('Punjabi');
+		    var temp23 = localStorage.getItem('english');
+	   	 var temp24 =  localStorage.getItem('hindi1');
+	    var temp25 = localStorage.getItem('maths1');
+		 var temp26 = localStorage.getItem('punjabi1');
+	   var temp27 = localStorage.getItem('science1');
+	  var temp28 = localStorage.getItem('social1');
+	  
+	  
+	 var temp29 = localStorage.getItem('bsc');
+	 var temp30 = localStorage.getItem('bca');
+	 var temp31 =  localStorage.getItem('ba');
+	 var temp32 = localStorage.getItem('agreed');
+	   
+	 
+	 
+	var UsersignupModel = 
+{
+
+firstname : ko.observable("").extend({minLength: 2, required: true}),
+lastname  : ko.observable("").extend({required: true, minLength: 2, maxLength: 8}),
+dayvalues : ["1","2","3","4","5", "6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],
+monthvalues : ["January", "February", "March" , "April", "May", "June", "July","August","September","October","November","December"],
+yearvalues :["2000", "2001","2002","2003","2004","2005","2006","2007","2008"],
+email : ko.observable("").extend({ email: true}),
+mobilenumber: ko.observable("").extend({
+  required: true,
+  pattern:
+   {
+    message:  'Phone Number does not match my pattern',
+	params: '^06-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$'
+  }
+}), 
+chosenGender : ko.observable().extend({required: true}),
+stringvalue : ko.observable(),
+city : ko.observable().extend({required: true}),
+zipcode : ko.observable().extend({required: true}),
+selectedDay : ko.observable("1"),
+selectedMonth : ko.observable("January"),
+selectedYear : ko.observable("2000"),
+states : ['California','Texas','Florida','Hawaii'],
+selectedState : ko.observable('Texas'),
+countries : ['United States', 'India','Canada','United Kingdom'],
+selectedCountry : ko.observable('United States'),
+booleanValue : ko.observable(false),
+booleanValue1 : ko.observable(false),
+booleanValue2 : ko.observable(false),
+booleanValue3 : ko.observable(false).extend({required: true}),
+otherhobby : ko.observable(),
+chosenCourse : ko.observable("BCA"),
+engscore: ko.observable(),
+hindiscore:  ko.observable(),
+pbiscore:  ko.observable(),
+mathsscore:  ko.observable(),
+sciscore:  ko.observable(),
+socialscore:  ko.observable(),
+Engscore: ko.observable(),
+Hindiscore:  ko.observable(),
+Pbiscore:  ko.observable(),
+Mathsscore:  ko.observable(),
+Sciscore:  ko.observable(),
+Socialscore:  ko.observable(),
+tdata : ko.observable(temp),
+tdata1 : ko.observable(temp1),
+tdata2 : ko.observable(temp2),
+tdata3 : ko.observable(temp3),
+tdata4 : ko.observable(temp4),
+tdata5 : ko.observable(temp5),
+tdata6 : ko.observable(temp6),
+tdata7 : ko.observable(temp7),
+tdata8 : ko.observable(temp8),
+tdata9 : ko.observable(temp9),
+tdata10 : ko.observable(temp10),
+tdata11 : ko.observable(temp11),
+tdata12 : ko.observable(temp12),
+tdata13 : ko.observable(temp13),
+tdata14 : ko.observable(temp14),
+tdata15 : ko.observable(temp15),
+tdata16 : ko.observable(temp16),
+tdata17 : ko.observable(temp17),
+tdata18 : ko.observable(temp18),
+tdata19 : ko.observable(temp19),
+tdata20 : ko.observable(temp20),
+tdata21 : ko.observable(temp21),
+tdata22 : ko.observable(temp22),
+tdata23 : ko.observable(temp23),
+tdata24 : ko.observable(temp24),
+tdata25 : ko.observable(temp25),
+tdata26 : ko.observable(temp26),
+tdata27 : ko.observable(temp27),
+tdata28 : ko.observable(temp28),
+tdata29 : ko.observable(temp29),
+tdata30 : ko.observable(temp30),
+tdata31 : ko.observable(temp31),
+tdata32 : ko.observable(temp32),
+
+
+submit: function(){
+		var result = ko.validation.group(UsersignupModel,{deep:true});
+			alert(result().length);
+			if(result().length > 0)
+			{
+				alert("Please Enter the required fields.");
+			
+				result.showAllMessages();
+
+				return false;
+			
+		     }
+			
+			/*
+			var observableProps = ["firstname","lastname" ];
+			var locatStorageProps= [fname, lname];
+			for (let i = 0; i< observableProps.length;i++)
+			{
+			console.log("hiiii");
+			var key = observableProps[i];
+			console.log(UsersignupModel.key);
+		//	localStorage.setItem(observableProps[i],UsersignupModel.observableProps[i]());
+			};
+			
+      console.log(UsersignupModel.firstname());
+	  */
+	  
+		alert("Your Data has been submitted successfully.");
+		
+		   
+
+		  // Save the name in localStorage.
+		  localStorage.setItem('fname', UsersignupModel.firstname());
+		  localStorage.setItem('lname',UsersignupModel.lastname());
+		  
+		   localStorage.setItem('date', UsersignupModel.selectedDay());
+		  localStorage.setItem('month',UsersignupModel.selectedMonth());
+		   localStorage.setItem('year',UsersignupModel.selectedYear() );
+		   
+		   localStorage.setItem('email', UsersignupModel.email());
+		  localStorage.setItem('mobilenum', UsersignupModel.mobilenumber());
+		  localStorage.setItem('male', UsersignupModel.chosenGender());
+		  localStorage.setItem('female',UsersignupModel.chosenGender());
+		  
+		 localStorage.setItem('Gender',UsersignupModel.chosenGender());
+		  
+		  localStorage.setItem('city', UsersignupModel.city());
+		  localStorage.setItem('zipcode',UsersignupModel.zipcode());
+		   localStorage.setItem('state',UsersignupModel.selectedState());
+		  localStorage.setItem('country', UsersignupModel.selectedCountry());
+		   localStorage.setItem('Drawing', UsersignupModel.booleanValue());
+		  localStorage.setItem('Singing', UsersignupModel.booleanValue1());
+		  localStorage.setItem('other', UsersignupModel.booleanValue2());
+		   localStorage.setItem('otherhobby',UsersignupModel.otherhobby());
+		   
+			localStorage.setItem('Eng',UsersignupModel.engscore());
+			localStorage.setItem('Hindi',UsersignupModel.hindiscore()) ;
+			  localStorage.setItem('Maths',UsersignupModel.mathsscore());
+				 localStorage.setItem('Science', UsersignupModel.sciscore());
+				  localStorage.setItem('Social', UsersignupModel.socialscore());
+			   localStorage.setItem('Punjabi', UsersignupModel.pbiscore());
+				localStorage.setItem('english', UsersignupModel.Engscore());
+			  localStorage.setItem('hindi1',UsersignupModel.Hindiscore() );
+			localStorage.setItem('maths1', UsersignupModel.Mathsscore());
+			 localStorage.setItem('punjabi1', UsersignupModel.Pbiscore());
+		  localStorage.setItem('science1', UsersignupModel.Sciscore());
+		  localStorage.setItem('social1', UsersignupModel.Socialscore());
+		  localStorage.setItem('bsc', UsersignupModel.chosenCourse());
+		 localStorage.setItem('bca', UsersignupModel.chosenCourse());
+		   localStorage.setItem('ba',  UsersignupModel.chosenCourse());
+		  localStorage.setItem('agreed', UsersignupModel.booleanValue3());
+		  
+		   localStorage.setItem('Course', UsersignupModel.chosenCourse());
+		   
+		  location.reload();
+		   
+	},
+  
+editData : function(){
+	 alert("Editing Done");
+	 localStorage.setItem('fname', UsersignupModel.tdata());
+		  localStorage.setItem('lname', UsersignupModel.tdata1());
+		  
+		   localStorage.setItem('date',UsersignupModel.tdata2());
+		  
+		  localStorage.setItem('month',UsersignupModel.tdata3());
+		  
+		   localStorage.setItem('year', UsersignupModel.tdata4());
+		   
+		   localStorage.setItem('email',UsersignupModel.tdata5());
+		   
+		  localStorage.setItem('mobilenum',UsersignupModel.tdata6());
+		  
+		  localStorage.setItem('male', UsersignupModel.tdata7());
+		   
+		  localStorage.setItem('female',UsersignupModel.tdata8());
+		  	  
+		 localStorage.setItem('Gender',UsersignupModel.chosenGender());
+		   
+		  localStorage.setItem('city',UsersignupModel.tdata9());
+		  localStorage.setItem('zipcode',UsersignupModel.tdata10());
+		   localStorage.setItem('state', UsersignupModel.tdata11());
+		  localStorage.setItem('country',UsersignupModel.tdata12());
+		   localStorage.setItem('Drawing', UsersignupModel.tdata13());
+		  localStorage.setItem('Singing', UsersignupModel.tdata14());
+		  localStorage.setItem('other', UsersignupModel.tdata15());
+		   localStorage.setItem('otherhobby',UsersignupModel.tdata16());
+		   
+			localStorage.setItem('Eng',UsersignupModel.tdata17());
+			localStorage.setItem('Hindi', UsersignupModel.tdata18());
+			
+			  localStorage.setItem('Maths', UsersignupModel.tdata19());
+				 localStorage.setItem('Science',UsersignupModel.tdata20());
+				  localStorage.setItem('Social', UsersignupModel.tdata21());
+			   localStorage.setItem('Punjabi',UsersignupModel.tdata22());
+				localStorage.setItem('english',UsersignupModel.tdata23());
+			  localStorage.setItem('hindi1', UsersignupModel.tdata24());
+			localStorage.setItem('maths1', UsersignupModel.tdata25());
+			 localStorage.setItem('punjabi1', UsersignupModel.tdata26());
+		  localStorage.setItem('science1', UsersignupModel.tdata27());
+		  localStorage.setItem('social1', UsersignupModel.tdata28());
+		  
+		  
+		  localStorage.setItem('bsc', UsersignupModel.tdata29());
+		  localStorage.setItem('bca',UsersignupModel.tdata30());
+		   localStorage.setItem('ba',UsersignupModel.tdata31());
+		  localStorage.setItem('agreed', UsersignupModel.tdata32());
+		  		  
+		   localStorage.setItem('Course', UsersignupModel.chosenCourse());
+		 location.reload();
+	
+	
+},
+
+deleteData: function(){
+	localStorage.clear();
+     location.reload();
+},
+
+reset : function(){
+  location.reload();
+  }
+
+	
+
+};
+
+
+
+ 
+ 
+ 
+
+ko.applyBindings(UsersignupModel); 
+
+
+
+	
+	</script>
+
+
+	
+	
+</body>
+
+</html>
+
+
+
+<!--
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js" type = "text/javascript"></script> 
+-->
